@@ -1,0 +1,374 @@
+
+<nz-tabset class="page-header-tab" *ngIf="dataAvailable">
+    <nz-tab nzTitle="Journal Content Information">
+        <div class="container">
+                <nz-card [nzTitle]="BasicInfomation">
+                        <ng-template #BasicInfomation>
+                                <div>Journal Information <button [nzLoading]="isLoading" class="float-right m-t-10" (click)="updateJournal()" nz-button nzType="primary" nzGhost><span>Save Journal Infomation</span></button></div>
+                            </ng-template>
+                <div class="row">
+                    <div class="col-md-6">
+                        <nz-form-item>
+                            <nz-form-label>Journal Name</nz-form-label>
+                            <nz-form-control>
+                                <input nz-input placeholder="Username" name="username" [(ngModel)]="journalDetails.journalName">
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col-md-6">
+                        <nz-form-item>
+                            <nz-form-label>Journal Email</nz-form-label>
+                            <nz-form-control>
+                                <input nz-input placeholder="Email" type="email" name = "email" [(ngModel)]="journalDetails.journalEmail">
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-2">
+                        <nz-form-item>
+                            <nz-form-label>ISSN Number</nz-form-label>
+                            <nz-form-control>
+                                <input nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="journalDetails.issnNumber">
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col-md-2">
+                            <nz-form-item>
+                                <nz-form-label>ISPN Number</nz-form-label>
+                                <nz-form-control>
+                                    <input nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="journalDetails.ispnNumber">
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    <div class="col-md-4">
+                        <nz-form-item>
+                            <nz-form-label>Journal Updated Date</nz-form-label>
+                            <input disabled nz-input placeholder="Phone Number" name="mobile" placeholder="{{journalDetails.journalUpdatedDate}}">
+                            
+                        </nz-form-item>
+                    </div>
+                    <div class="col-md-4">
+                            <nz-form-item>
+                                    <nz-form-label>journalShortName</nz-form-label>
+                                    <nz-form-control>
+                                        <input disabled  nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="journalDetails.journalShortName">
+                                    </nz-form-control>
+                            </nz-form-item>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <!-- assign role option should appear for SuperAdmin -->
+                            <nz-form-item>
+                                    <nz-form-label>Select Related Subjects</nz-form-label>
+                                    <nz-form-control>
+                                            <nz-select
+                                            class="w-100"
+                                            nzMode="multiple"
+                                            nzPlaceHolder="Assign subject"
+                                            [(ngModel)]="selectedSubject"
+                                        >
+                                            <ng-container *ngFor="let option of subjectsList">
+                                                <nz-option [nzLabel]="option" [nzValue]="option" ></nz-option>
+                                            </ng-container>
+                                        </nz-select>
+                                </nz-form-control>
+                                </nz-form-item>
+                    </div>
+                    <div class="col-md-4">
+                          <!-- assign role option should appear for SuperAdmin -->
+                          <nz-form-item>
+                                <nz-form-label>Select Admin (Primary User)</nz-form-label>
+                                <nz-form-control>
+                                        <nz-select
+                                        class="w-100"
+                                        nzMode="multiple"
+                                        nzPlaceHolder="Assign user"
+                                        [(ngModel)]="selectedUser"
+                                    >
+                                        <ng-container *ngFor="let option of adminsList">
+                                            <nz-option [nzLabel]="option" [nzValue]="option" ></nz-option>
+                                        </ng-container>
+                                    </nz-select>
+                            </nz-form-control>
+                            </nz-form-item>
+                    </div>
+                    <div class="col-md-4">
+                            <nz-form-item>
+                                    <nz-form-label>Article Processing Charge</nz-form-label>
+                                    <nz-form-control>
+                                        <input  nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="journalDetails.articleProcessingCharge">
+                                    </nz-form-control>
+                            </nz-form-item>
+                     </div>
+                </div>
+            </nz-card> 
+            <nz-card nzTitle="Journal Content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nz-form-item>
+                            <nz-form-label>About Journal</nz-form-label>
+                            <nz-form-control>
+                                    <!-- <textarea rows="3"  nz-input placeholder="Address" name="address" [(ngModel)]="journalDetails.aboutJournal"></textarea> -->
+                                    <!-- <textarea  htmlEditor [editorContent]="journalDetails.aboutJournal" (htmlEditorKeyUp)="onHtmlEditorKeyUpForAboutJornal($event)"></textarea> -->
+                                    <nz-form-item>
+                                        <quill-editor [style]="{height: '150px'}" [modules]="editorConfig"  [(ngModel)]="journalDetails.aboutJournal" placeholder=""></quill-editor>
+                                    </nz-form-item>
+                                </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <nz-form-item>
+                            <nz-form-label>Aim and Scope</nz-form-label>
+                            <nz-form-control>
+                                    <nz-form-item>
+                                            <quill-editor [style]="{height: '150px'}" [modules]="editorConfig"  [(ngModel)]="journalDetails.aimAndScope" placeholder=""></quill-editor>
+                                        </nz-form-item>
+                                    <!-- <textarea rows="3" nz-input placeholder="Biography" name="biography" [(ngModel)]="journalDetails.aimAndScope"></textarea> -->
+                                    <!-- <textarea  htmlEditor [editorContent]="journalDetails.aimAndScope" (htmlEditorKeyUp)="onHtmlEditorKeyUpForAimScope($event)"></textarea> -->
+                                </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <nz-form-item>
+                            <nz-form-label>Article Inpress Text</nz-form-label>
+                            <nz-form-control>
+                                    <nz-form-item>
+                                            <quill-editor [style]="{height: '150px'}" [modules]="editorConfig"  [(ngModel)]="journalDetails.articleInPressText" placeholder=""></quill-editor>
+                                        </nz-form-item>
+                                <!-- <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.articleInPressText"></textarea> -->
+                                <!-- <textarea  htmlEditor [editorContent]="journalDetails.articleInPressText" (htmlEditorKeyUp)="onHtmlEditorKeyUpArticleInpress($event)"></textarea> -->
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <nz-form-label>Current Issue Text</nz-form-label>
+                                <nz-form-control>
+                                        <nz-form-item>
+                                                <quill-editor [style]="{height: '150px'}" [modules]="editorConfig"  [(ngModel)]="journalDetails.currentIssueText" placeholder=""></quill-editor>
+                                            </nz-form-item>
+                                    <!-- <textarea rows="3" nz-input placeholder="Interests" name="interests" [(ngModel)]="journalDetails.currentIssueText"></textarea> -->
+                                    <!-- <textarea  htmlEditor [editorContent]="journalDetails.currentIssueText" (htmlEditorKeyUp)="onHtmlEditorKeyUpCurrentIssue($event)"></textarea> -->
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-md-12">
+                                <nz-form-item>
+                                    <nz-form-label>Archieve Page Text</nz-form-label>
+                                    <nz-form-control>
+                                            <nz-form-item>
+                                                    <quill-editor [style]="{height: '150px'}" [modules]="editorConfig"  [(ngModel)]="journalDetails.archievePageText" placeholder=""></quill-editor>
+                                                </nz-form-item>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-12">
+                                    <nz-form-item>
+                                        <nz-form-label>Guidlines</nz-form-label>
+                                        <nz-form-control>
+                                                <nz-form-item>
+                                                        <quill-editor [style]="{height: '150px'}" [modules]="editorConfig"  [(ngModel)]="journalDetails.guidlines" placeholder=""></quill-editor>
+                                                    </nz-form-item>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                            </div>
+ 
+             </nz-card>
+             <nz-card nzTitle="Journal Infomation">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <nz-form-label>Facebook Link (URL)</nz-form-label>
+                                <nz-form-control>
+                                        <input nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="journalDetails.fbLink">
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-md-12">
+                                <nz-form-item>
+                                    <nz-form-label>Linkedin Link (URL)</nz-form-label>
+                                    <nz-form-control>
+                                            <input nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="journalDetails.linkedinLink">
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+                <div class="row">
+                        <div class="col-md-12">
+                            <nz-form-item>
+                                <nz-form-label>Twitter Link (URL)</nz-form-label>
+                                <nz-form-control>
+                                        <input nz-input placeholder="Phone Number" name="mobile" [(ngModel)]="journalDetails.twitterLink">
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                 </nz-card>
+                 
+                 <nz-card nzTitle="Journal Uploads">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                    <div class="media align-items-center">
+                                            <img [src]="imageToShowBanner" style="width:80px; border-radius: 50%;vertical-align: middle;" />
+                                            <div class="m-l-20 m-r-20">
+                                                <h5 class="m-b-5 font-size-18">Change Journal Banner</h5>
+                                             </div>
+                                            <nz-upload 
+                                                nzName="avatar"
+                                                [nzAction]="upoadBannerUrl" 
+                                                [nzCustomRequest]="customReqBanner"
+                                                [nzShowUploadList]="false"
+                                               >
+                                                <button [nzLoading]="isLoadingBanner" nz-button nzType="primary" nzGhost>
+                                                    <span>Upload Banner</span>
+                                                </button>
+                                            </nz-upload>
+                                         </div>
+                            </div>
+                            <div class="col-md-6">
+                                    <div class="media align-items-center">
+                                            <img [src]="imageToShowFlyer" style="width:80px; border-radius: 50%;vertical-align: middle;" />
+                                            <div class="m-l-20 m-r-20">
+                                                <h5 class="m-b-5 font-size-18">Change Journal Flyer</h5>
+                                             </div>
+                                            <nz-upload 
+                                                nzName="avatar"
+                                                [nzAction]="upoadFlyerUrl" 
+                                                [nzCustomRequest]="customReqFlyer"
+                                                [nzShowUploadList]="false"
+                                               >
+                                                <button [nzLoading]="isLoadingFlyer" nz-button nzType="primary" nzGhost>
+                                                    <span>Upload Flyer</span>
+                                                </button>
+                                            </nz-upload>
+                                         </div>
+                            </div>
+                        </div>
+                         
+                        <div class="row mb-4">
+                                <div class="col-md-6">
+                                        <div class="media align-items-center">
+                                                <img [src]="FlyerPdf" style="width:80px; border-radius: 50%;vertical-align: middle;"/>
+                                                <a *ngIf="pdfFile" [href]="pdfFile" target="_blank">Download</a>
+                                                <div class="m-l-20 m-r-20">
+                                                    <h5 class="m-b-5 font-size-18">Journal Flyer PDF</h5>
+                                                 </div>
+                                                <nz-upload 
+                                                    nzName="avatar"
+                                                    [nzAction]="uploadPdfFlyer" 
+                                                    [nzCustomRequest]="customReqPdfFlyer"
+                                                    [nzShowUploadList]="false"
+                                                   >
+                                                    <button [nzLoading]="isLoadingPdf"  nz-button nzType="primary" nzGhost>
+                                                        <span>Upload Flyer PDF</span>
+                                                    </button>
+                                                </nz-upload>
+                                             </div>
+                                </div>
+                                <div class="col-md-6">
+                                        <div class="media align-items-center">
+                                                <img [src]="imageToFlyerLogo" style="width:80px; border-radius: 50%;vertical-align: middle;" />
+                                                <div class="m-l-20 m-r-20">
+                                                    <h5 class="m-b-5 font-size-18">Change Journal Flyer Logo</h5>
+                                                 </div>
+                                                <nz-upload 
+                                                    nzName="avatar"
+                                                    [nzAction]="uploadFlyerLogo" 
+                                                    [nzCustomRequest]="customReqFlyerLogo"
+                                                    [nzShowUploadList]="false"
+                                                   >
+                                                    <button [nzLoading]="isLoadingLogo" nz-button nzType="primary" nzGhost>
+                                                        <span>Upload Flyer Logo</span>
+                                                    </button>
+                                                </nz-upload>
+                                             </div>
+                                </div>
+                            </div>
+                     </nz-card>  
+        </div>
+    </nz-tab>
+    <nz-tab nzTitle="Journal Settings">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <nz-card nzTitle="Network Integration">
+                        <nz-list [nzDataSource]="networkList" [nzRenderItem]="network" [nzItemLayout]="'horizontal'">
+                            <ng-template #network let-item>
+                                <nz-list-item [nzActions]="[moreAction]">
+                                    <ng-template #moreAction>
+                                        <span class="m-r-10 text-gray" *ngIf="item.status">{{item.link}}</span>
+                                        <nz-switch [ngModel]="item.status" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"></nz-switch>
+                                        <ng-template #checkedTemplate><i class="font-size-12" nz-icon type="check"></i></ng-template>
+                                        <ng-template #unCheckedTemplate><i class="font-size-12" nz-icon type="close"></i></ng-template>
+                                    </ng-template>
+                                    <nz-list-item-meta
+                                        [nzTitle]="networkName"
+                                        [nzAvatar]="networkIcon">
+                                        <ng-template #networkIcon>
+                                            <nz-avatar [nzIcon]="item.icon" [ngStyle]="{'color': item.avatarColor, 'background': item.avatarBg}"></nz-avatar>
+                                        </ng-template>
+                                        <ng-template #networkName>
+                                            <div class="font-size-15 font-weight-semibold m-t-10">{{item.name}}</div>
+                                        </ng-template>
+                                    </nz-list-item-meta>
+                                </nz-list-item>
+                            </ng-template>
+                        </nz-list>
+                    </nz-card>
+                </div>
+            </div>
+        </div>
+    </nz-tab>
+    <nz-tab nzTitle="Journal Notifications">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <nz-card nzTitle="Notification Config">
+                        <nz-list [nzDataSource]="notificationConfigList" [nzRenderItem]="notification" [nzItemLayout]="'horizontal'">
+                            <ng-template #notification let-item>
+                                <nz-list-item [nzActions]="[configStatus]">
+                                    <ng-template #configStatus>
+                                        <nz-switch [ngModel]="item.status" [nzCheckedChildren]="checkedTemplate2nd" [nzUnCheckedChildren]="unCheckedTemplate2nd"></nz-switch>
+                                        <ng-template #checkedTemplate2nd><i class="font-size-12" nz-icon type="check"></i></ng-template>
+                                        <ng-template #unCheckedTemplate2nd><i class="font-size-12" nz-icon type="close"></i></ng-template>
+                                    </ng-template>
+                                    <nz-list-item-meta
+                                        [nzTitle]="notificationTitle"
+                                        [nzAvatar]="notificationIcon">
+                                        <ng-template #notificationIcon>
+                                            <nz-avatar [nzIcon]="item.icon" [ngClass]="item.color" class="m-t-5"></nz-avatar>
+                                        </ng-template>
+                                        <ng-template #notificationTitle>
+                                            <h5 class="font-weight-semibold m-b-0">{{item.title}}</h5>
+                                            <p class="m-b-0 font-weight-normal">{{item.desc}}</p>
+                                        </ng-template>
+                                    </nz-list-item-meta>
+                                </nz-list-item>
+                            </ng-template>
+                        </nz-list>
+                    </nz-card>
+                </div>
+            </div>
+        </div>
+    </nz-tab>
+</nz-tabset>
+<nz-card *ngIf="!dataAvailable">
+        <nz-skeleton [nzActive]="true"></nz-skeleton>
+</nz-card>
+

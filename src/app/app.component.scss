@@ -1,0 +1,34 @@
+[nz-button] {
+    margin-right: 8px;
+    margin-bottom: 12px;
+}
+div.wrapper-container {
+    margin:0 auto;
+    width: 80%;
+    padding: 8px;
+}
+
+nz-button-group [nz-button] {
+    margin-right: 0;
+  }
+
+
+div.parentDiv h4 {
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: normal;
+  }
+
+  div.parentDiv h4:first-child {
+    margin-top: 0;
+  }
+
+  div.parentDiv [nz-button] {
+    margin-bottom: 12px;
+  }
+
+  div.parentDiv nz-button-group {
+    margin-bottom: 8px;
+    margin-right: 8px;
+  }

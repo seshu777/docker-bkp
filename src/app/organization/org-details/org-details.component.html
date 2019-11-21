@@ -1,0 +1,112 @@
+ 
+<div class="row">
+    <div class="col-md-12">
+        <nz-card>
+            <div class="d-flex">
+                <h3>Organization details</h3>
+             </div>
+         </nz-card>
+         
+    </div>
+    <div class="col-md-12">
+        <nz-card>
+            <h5 class="col-md-4" style="border-bottom: 3px solid #ccc; padding-bottom: 10px; text-align: center ">Organization Menu Management</h5>
+            <div class="justify-content-between align-items-center ng-star-inserted">
+              <nz-skeleton [nzActive]="true" *ngIf="!dataAvailable"></nz-skeleton>
+
+                    <ul nz-menu nzMode="inline" *ngIf="dataAvailable" [sortablejs]="menuList" [sortablejsOptions]="{ animation: 150 }">
+                        <li nz-submenu [nzTitle]="Menuname" nzIcon="drag" class="handle" *ngFor="let menu of menuList">
+                                    <ul>
+                                      <li nz-menu-item><i nz-icon nzType="drag" class="handle" nzTheme="outline"></i> Option 11 <button style="float:right" nz-button nzType="danger" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="delete"></i></button>
+                                        <button style="float:right; margin-right: 5px" nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="edit"></i></button>
+                                      </li>
+                                      <li nz-menu-item><i nz-icon nzType="drag" class="handle" nzTheme="outline"></i> Option 12 <button style="float:right" nz-button nzType="danger" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="delete"></i></button>
+                                        <button style="float:right; margin-right: 5px" nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="edit"></i></button>
+                                      </li>
+                                      <li nz-menu-item><i nz-icon nzType="drag" class="handle" nzTheme="outline"></i> Option 13 <button style="float:right" nz-button nzType="danger" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="delete"></i></button>
+                                        <button style="float:right; margin-right: 5px" nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i class="mr-0" nz-icon nzType="edit"></i></button>
+                                      </li>
+                                    </ul>
+                             <ng-template #Menuname>
+                                {{menu.menuName }}
+                                <button style="float:right" nz-button nzType="danger" [nzSize]="size" nzShape="circle" (click)="deleteMenu(menu)"><i class="mr-0" nz-icon nzType="delete"></i></button>
+                                <button style="float:right; margin-right: 5px" nz-button nzType="primary" [nzSize]="size" nzShape="circle" (click)="editMenu(menu)"><i class="mr-0" nz-icon nzType="edit"></i></button>
+                                <!-- <button style="float:right" nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i nz-icon nzType="download"></i></button> -->
+
+                             </ng-template>
+                        </li>
+                    </ul>
+
+                    <button class="mt-5" nzShape="round" nz-button nzType="primary" nzBlock  (click)="openMenuPopup()"><i nz-icon nzType="plus-circle" nzTheme="outline"></i> Add Menu</button>
+                </div>
+             <div>
+                
+             </div>
+         </nz-card>
+    </div>
+</div>
+<nz-modal [(nzVisible)]="isVisible" [nzWidth]="900" nzTitle="Add/Edit Menu" [nzFooter]="modalFooterMenu">
+    
+    <form nz-form [formGroup]="menuForm">
+            <nz-form-item>
+                <nz-form-label nzFor="Menu Name">Menu Name</nz-form-label>
+                <nz-form-control>
+                    <input formControlName="MenuName" nz-input type="text" placeholder="Menu Name">
+                    <nz-form-explain
+                    *ngIf="menuForm.get('MenuName').dirty && menuForm.get('MenuName').errors">
+                    Please input menuName!</nz-form-explain>
+                 </nz-form-control>
+            </nz-form-item>
+             <nz-form-item>
+                <nz-form-label nzFor="menuLink">Menu Link</nz-form-label>
+                <nz-form-control>
+                    <input formControlName="menuLink" [disabled]="editmode" nz-input type="text" placeholder="Menu Link">
+                    <nz-form-explain
+                    *ngIf="menuForm.get('menuLink').dirty && menuForm.get('menuLink').errors">
+                    Please input menu link!</nz-form-explain>
+                  </nz-form-control>
+            </nz-form-item>
+              <nz-form-item>
+                  <nz-form-label nzFor="menuDescription">Menu Short Description</nz-form-label>
+                  <nz-form-control>
+                        <textarea formControlName="menuDescription" nz-input rows="2" placeholder="Short Description of Menu"></textarea>
+                        <nz-form-explain
+                        *ngIf="menuForm.get('menuDescription').dirty && menuForm.get('menuDescription').errors">
+                        Please input menu Description!</nz-form-explain>
+                   </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                    <nz-form-label nzFor="menuContent">Menu Content</nz-form-label>
+                    <nz-form-control>
+                            <nz-form-item>
+                                    <quill-editor [style]="{height: '150px'}"  [modules]="editorConfig" placeholder="add content of Menu -- page"  
+                                    [(ngModel)]="menuContent"
+                                    [ngModelOptions]="{standalone: true}"></quill-editor>
+                                </nz-form-item>
+                                <!-- <nz-form-explain
+                        *ngIf="menuForm.get('menuContent').dirty && menuForm.get('menuContent').errors">
+                        Please input menu content!</nz-form-explain> -->
+                     </nz-form-control>
+                </nz-form-item>
+              <nz-form-item>
+                      <nz-form-label nzFor="status">Status</nz-form-label>
+                      <nz-form-control>
+                            <nz-select
+                               formControlName="status"
+                                style="width: 200px;"
+                                nzPlaceHolder="Select Status"
+                                >
+                                <nz-option nzLabel="Active" nzValue="Active"></nz-option>
+                                <nz-option nzLabel="Inactive" nzValue="Inactive"></nz-option>
+                             </nz-select>
+                             <nz-form-explain
+                             *ngIf="menuForm.get('status').dirty && menuForm.get('status').errors">
+                             Please input status!</nz-form-explain>
+                       </nz-form-control>
+              </nz-form-item>
+</form>
+      <ng-template #modalFooterMenu>
+        <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+        <button [nzLoading]="isLoading" nz-button nzType="primary" [disabled]="!menuForm.valid" (click)="addMenu()">Add</button>
+      </ng-template>
+    </nz-modal>

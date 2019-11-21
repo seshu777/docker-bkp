@@ -1,0 +1,105 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?vvppx5');
+  src:  url('fonts/icomoon.eot?vvppx5#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?vvppx5') format('truetype'),
+    url('fonts/icomoon.woff?vvppx5') format('woff'),
+    url('fonts/icomoon.svg?vvppx5#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-radio:before {
+  content: "\e917";
+  color: #fff;
+}
+.icon-checkbox:before {
+  content: "\e918";
+}
+.icon-copy:before {
+  content: "\e915";
+}
+.icon-upload:before {
+  content: "\e916";
+}
+.icon-dragdrop:before {
+  content: "\e913";
+}
+.icon-group:before {
+  content: "\e900";
+}
+.icon-catalog:before {
+  content: "\e914";
+  color: rgba(0, 0, 0, 0.65);
+}
+.icon-download:before {
+  content: "\e911";
+  color: rgba(0, 0, 0, 0.65);
+}
+.icon-rubbish-bin:before {
+  content: "\e912";
+  color: rgba(0, 0, 0, 0.65);
+}
+.icon-send-button:before {
+  content: "\e901";
+}
+.icon-signin:before {
+  content: "\e902";
+}
+.icon-timer:before {
+  content: "\e903";
+}
+.icon-grade:before {
+  content: "\e904";
+}
+.icon-filter-results-button:before {
+  content: "\e905";
+}
+.icon-assessments:before {
+  content: "\e906";
+}
+.icon-dashboard:before {
+  content: "\e907";
+}
+.icon-reports:before {
+  content: "\e908";
+}
+.icon-support:before {
+  content: "\e909";
+}
+.icon-users:before {
+  content: "\e90a";
+}
+.icon-ellipsis:before {
+  content: "\e90b";
+}
+.icon-ellipsis1:before {
+  content: "\e90c";
+}
+.icon-edit-pencil:before {
+  content: "\e90d";
+}
+.icon-clone:before {
+  content: "\e90e";
+}
+.icon-preview:before {
+  content: "\e90f";
+}
+.icon-publish:before {
+  content: "\e910";
+}
