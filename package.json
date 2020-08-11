@@ -46,7 +46,7 @@
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",
     "sortablejs": "^1.10.0",
-    "tinymce": "^5.0.10",
+    "tinymce": "^5.4.0",
     "webpack-bundle-analyzer": "^3.0.3",
     "zone.js": "~0.9.1"
   },
